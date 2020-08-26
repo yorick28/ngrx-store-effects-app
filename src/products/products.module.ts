@@ -4,6 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { StoreModule } from '@ngrx/store';
+
+import { reducers } from './store';
+
 // components
 import * as fromComponents from './components';
 
@@ -35,6 +39,10 @@ export const ROUTES: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forChild(ROUTES),
+    // forFeature allows us to lazyLoad everything to do with our store
+    // will bind itself to the ROUTE store object
+    // {} = reducers
+    StoreModule.forFeature('products', reducers),
   ],
   providers: [...fromServices.services],
   declarations: [...fromContainers.containers, ...fromComponents.components],
